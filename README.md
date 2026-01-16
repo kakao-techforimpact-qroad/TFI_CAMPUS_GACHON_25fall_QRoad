@@ -35,27 +35,10 @@
 
 ## 🧩 시스템 아키텍처
 
-본 서비스는 QR 스캔을 통해 사용자에게 기사 확장 정보를 제공하는 구조로,  
-프론트엔드–백엔드–AI/데이터베이스가 연동되는 흐름으로 동작합니다.
+본 서비스는 관리자/사용자 웹을 분리한 단일 React 애플리케이션과 Spring Boot 기반 API 서버로 구성되어 있습니다.  
+프론트엔드는 Vercel을 통해 정적 배포되며, 백엔드는 EC2에서 운영됩니다.
 
-### 전체 구조 요약
-1. 사용자가 신문 지면의 QR을 스캔  
-2. 프론트엔드(React)로 접속하여 기사 리스트 또는 상세 페이지 조회  
-3. 백엔드(Spring Boot)가 기사·정책·연관 기사 추천 정보를 제공  
-4. AI 요약은 OpenAI API를 통해 생성  
-5. 유사도 검색은 OpenAI Embeddings → PostgreSQL(pgvector) 기반으로 처리  
-
-### 텍스트 아키텍처
-```
-[User QR Scan]
-        ↓
-[Frontend (React)]
-        ↓ API
-[Backend (Spring Boot)]
-        ├─ PostgreSQL (기사/정책/메타 데이터)
-        ├─ pgvector (유사도 검색)
-        └─ OpenAI API (AI 요약)
-```
+![System Architecture](./images/architecture.png)
 
 ---
 
